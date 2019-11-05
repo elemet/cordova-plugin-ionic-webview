@@ -23,6 +23,13 @@
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=104773211)](https://dependabot.com)
 [![npm](https://img.shields.io/npm/v/cordova-plugin-ionic-webview.svg)](https://www.npmjs.com/package/cordova-plugin-ionic-webview)
 
+# Reason for Wattcost Fork
+
+- Add `DisallowOverzoom` option
+
+    Workaround for inputs losing focus when HTML meta tag `user-scalable=no` is set. Use in combination with meta tag `maximum-scale=1.0000001, minimum-scale=1` to fix the issue whilst still preventing zooming.
+
+
 # Ionic Web View for Cordova
 
 A Web View plugin for Cordova, focused on providing the highest performance experience for Ionic apps (but can be used with any Cordova app).
@@ -132,6 +139,14 @@ Whether to use a dark styled keyboard on iOS
 ```
 
 Ionic apps work better if the WKWebView is not scrollable, so the scroll is disabled by default, but can be enabled with this preference. This only affects the main ScrollView of the WKWebView, so only affects the body, not other scrollable components.
+
+#### DisallowOverzoom
+
+```xml
+<preference name="DisallowOverzoom" value="true" />
+```
+
+Overzoom allowed by default, disallow to prevent zooming animation from exceeding maximum and minimum limits.
 
 ## Plugin Requirements
 

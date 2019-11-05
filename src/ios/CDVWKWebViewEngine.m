@@ -478,6 +478,22 @@ NSTimer *timer;
         }
     }
 
+    // By default, DisallowOverzoom is false (thus bounce is allowed)
+    BOOL bounceZoomAllowed = !([settings cordovaBoolSettingForKey:@"DisallowOverzoom" defaultValue:NO]);
+
+    // prevent webView from bouncing
+    if (!bounceZoomAllowed) {
+        if ([wkWebView respondsToSelector:@selector(scrollView)]) {
+            ((UIScrollView*)[wkWebView scrollView]).bouncesZoom = NO;
+        } else {
+            for (id subview in wkWebView.subviews) {
+                if ([[subview class] isSubclassOfClass:[UIScrollView class]]) {
+                    ((UIScrollView*)subview).bouncesZoom = NO;
+                }
+            }
+        }
+    }
+
     wkWebView.configuration.preferences.minimumFontSize = [settings cordovaFloatSettingForKey:@"MinimumFontSize" defaultValue:0.0];
     wkWebView.allowsLinkPreview = [settings cordovaBoolSettingForKey:@"AllowLinkPreview" defaultValue:NO];
     wkWebView.scrollView.scrollEnabled = [settings cordovaBoolSettingForKey:@"ScrollEnabled" defaultValue:NO];
